@@ -11,6 +11,18 @@ class Song : public Entry{
   void set_property(string name, string value) override;
 
   Property<string> location;
+  Property<string> file;
+  Property<string> title;
+  Property<string> artist;
+  Property<string> album;
+  Property<int> duration{};;
+  Property<int> size{};
+
+  string url_to_path(const string &encoded);
+
+  bool same_file(const Song& rhs) const;
+  bool same_info(const Song& rhs) const;
+  bool operator==(const Song& rhs) const;
 
 };
 

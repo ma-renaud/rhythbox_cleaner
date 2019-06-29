@@ -31,11 +31,11 @@ class RhythmDBXML {
   Nodes current_node = NONE;
   std::unique_ptr<Entry> entry;
 
-  void entry_open(std::string type);
+  void entry_open(const std::string& type);
   void entry_close(mxml_node_t *node);
   void extract_entry_data(mxml_node_t *node);
   static std::string extract_value(mxml_node_t *node);
-  void write_entry(Entry *entry, std::string type, mxml_node_t *parent);
+  void write_entry(Entry *_entry, const std::string& type, mxml_node_t *parent);
 };
 
 #endif //RHYTHBOX_CLEANER_RHYTHMDBXML_H

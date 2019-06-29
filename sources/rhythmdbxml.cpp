@@ -55,7 +55,7 @@ void RhythmDBXML::sax_callback(mxml_node_t *node, mxml_sax_event_t event, void *
   }
 }
 
-void RhythmDBXML::entry_open(std::string type) {
+void RhythmDBXML::entry_open(const std::string& type) {
   if (type == "song") {
     current_node = SONG;
     entry = std::make_unique<Song>();
@@ -126,12 +126,12 @@ std::string RhythmDBXML::extract_value(mxml_node_t *node) {
   return value_str;
 }
 
-void RhythmDBXML::write_entry(Entry *entry, std::string type, mxml_node_t *parent) {
+void RhythmDBXML::write_entry(Entry *_entry, const std::string& type, mxml_node_t *parent) {
   mxml_node_t *node;
   mxml_node_t *entry_node;
   entry_node = mxmlNewElement(parent, "entry");
   mxmlElementSetAttr(entry_node, "type", type.c_str());
-  for (auto const&[key, val] : *(entry->get_properties())) {
+  for (auto const&[key, val] : *(_entry->get_properties())) {
     node = mxmlNewElement(entry_node, key.c_str());
     mxmlNewText(node, 0, val.c_str());
   }

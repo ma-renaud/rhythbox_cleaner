@@ -42,6 +42,8 @@ int main() {
   tree = mxmlSAXLoadFile(nullptr, fp, MXML_TEXT_CALLBACK, SaxMemberFunctionCallback(&parser, &RhythmDBXML::sax_callback), nullptr);
   fclose(fp);
 
+  rhythmdb.search_problems();
+
   parser.write_to_file("../filename.xml");
 
   std::cout << "Nb songs: " << rhythmdb.nb_songs() << std::endl;
@@ -51,7 +53,8 @@ int main() {
   std::cout << "Nb podcast posts: " << rhythmdb.nb_podcast_posts() << std::endl;
   std::cout<<std::endl;
 
-
+  std::cout << "Nb duplicate songs: " << rhythmdb.nb_same_file() << std::endl;
+  std::cout << "Nb possibly duplicate songs: " << rhythmdb.nb_same_info_only() << std::endl;
 
   std::cout<<std::endl;
 
