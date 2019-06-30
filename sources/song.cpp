@@ -6,7 +6,6 @@ namespace fs = boost::filesystem;
 
 Song::Song() {
   location = Entry::NOTSET;
-  file = Entry::NOTSET;
   title = Entry::NOTSET;
   artist = Entry::NOTSET;
   album = Entry::NOTSET;
@@ -14,7 +13,7 @@ Song::Song() {
   size = 0;
 }
 
-void Song::set_property(string name, string value) {
+void Song::set_property(const string &name, const string &value) {
   Entry::set_property(name, value);
 
   if (name == "title")

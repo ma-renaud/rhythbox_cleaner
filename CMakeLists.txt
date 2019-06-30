@@ -10,6 +10,7 @@ find_package(CURL REQUIRED)
 
 add_subdirectory(sources)
 add_subdirectory(includes)
+add_subdirectory(cli)
 
 add_executable(${PROJECT_NAME} ${${PROJECT_NAME}_SOURCES})
 

@@ -7,7 +7,7 @@
 
 class RhythmDB {
  public:
-  RhythmDB() { version = "2.0"; }
+  RhythmDB() { version = "2.0"; scan_progress = 0; }
   ~RhythmDB() = default;
 
   void search_problems();
@@ -34,6 +34,7 @@ class RhythmDB {
   int nb_same_info_only() { return duplicated_songs_same_info.size(); }
 
   Property<std::string> version;
+  Property<unsigned int> scan_progress;
 
  private:
   std::deque<Entry> podcast_feeds;

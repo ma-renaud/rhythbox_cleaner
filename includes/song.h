@@ -8,10 +8,9 @@ class Song : public Entry{
   Song();
   ~Song() = default;
 
-  void set_property(string name, string value) override;
+  void set_property(const string &name, const string &value) override;
 
   Property<string> location;
-  Property<string> file;
   Property<string> title;
   Property<string> artist;
   Property<string> album;

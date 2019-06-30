@@ -6,6 +6,7 @@
 #include <boost/filesystem.hpp>
 
 void RhythmDB::search_problems() {
+  scan_progress = 0;
   std::deque<std::pair<Song *, Song *>> conflicts;
   int nb_songs = songs.size();
   int current_song = 0;
@@ -14,6 +15,7 @@ void RhythmDB::search_problems() {
     for (int i = current_song + 1; i < nb_songs; i++) {
       if (songs[current_song].same_info(songs[i]))
         conflicts.emplace_back(&songs[current_song], &songs[i]);
+      scan_progress = scan_progress() + 1;
     }
     current_song++;
   }

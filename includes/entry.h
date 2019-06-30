@@ -14,8 +14,7 @@ class Entry {
   ~Entry() = default;
 
   auto get_properties(){ return &properties; }
-  virtual void set_property(string name, string value);
-  virtual std::optional<std::string> get_property(string name);
+  virtual void set_property(const string &name, const string &value);
 
   static const std::string NOTSET;
 
