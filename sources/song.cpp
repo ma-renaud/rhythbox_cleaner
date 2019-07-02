@@ -11,6 +11,7 @@ Song::Song() {
   album = Entry::NOTSET;
   duration = 0;
   size = 0;
+  first_seen = 0;
 }
 
 void Song::set_property(const string &name, const string &value) {
@@ -26,9 +27,10 @@ void Song::set_property(const string &name, const string &value) {
     duration = std::stoi(value);
   if (name == "file-size")
     size = std::stoi(value);
-  if (name == "location") {
+  if (name == "location")
     location = url_to_path(value.substr(7));
-  }
+  if (name == "first-seen")
+    first_seen = std::stoi(value);
 }
 
 string Song::url_to_path(const string &encoded) {
@@ -64,8 +66,5 @@ bool Song::same_info(const Song &rhs) const {
 }
 
 bool Song::operator==(const Song &rhs) const {
-  bool res = same_info(rhs);
-  if (res)
-    res = same_file(rhs);
-  return res;
+  return same_info(rhs) && location() == rhs.location();
 }

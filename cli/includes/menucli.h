@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <mutex>
+#include <functional>
 #include "progressbar.h"
 
 class RhythmDB;
@@ -15,7 +16,10 @@ class MenuCLI {
   void show_menu();
   void start_load();
   void load_completed();
-  void scan_completed();
+  void start_scan();
+  void scan_completed(const std::function<void (bool)>& callback);
+  void start_fix();
+  void fix_completed();
 
  private:
   enum MenuState {
@@ -26,6 +30,7 @@ class MenuCLI {
   };
 
   unsigned int current_scan_count = 0;
+  unsigned int current_fix_count = 0;
   RhythmDB *rhythmdb;
   MenuState current_state {NONE};
   std::unique_ptr<ProgressBar> progressBar;
@@ -35,6 +40,7 @@ class MenuCLI {
 
   void show_load();
   void show_scan();
+  void show_fix();
 };
 
 #endif //MENUCLI_H

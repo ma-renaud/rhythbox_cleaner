@@ -7,10 +7,11 @@
 
 class RhythmDB {
  public:
-  RhythmDB() { version = "2.0"; scan_progress = 0; }
+  RhythmDB() { version = "2.0"; scan_progress = 0; fix_progress = 0; }
   ~RhythmDB() = default;
 
   void search_problems();
+  void fix_problems();
 
   void add_song(const Song &song);
   void add_podcast_feed(const Entry &entry);
@@ -34,7 +35,8 @@ class RhythmDB {
   int nb_same_info_only() { return duplicated_songs_same_info.size(); }
 
   Property<std::string> version;
-  Property<unsigned int> scan_progress;
+  Property<unsigned int> scan_progress{};
+  Property<unsigned int> fix_progress{};
 
  private:
   std::deque<Entry> podcast_feeds;
@@ -42,9 +44,8 @@ class RhythmDB {
   std::deque<Song> ignores;
   std::deque<Entry> podcast_posts;
   std::deque<Song> songs;
-
-  std::deque<std::pair<Song *, Song *>> duplicated_songs_same_file;
-  std::deque<std::pair<Song *, Song *>> duplicated_songs_same_info;
+  std::deque<std::pair<Song, Song>> duplicated_songs_same_file;
+  std::deque<std::pair<Song, Song>> duplicated_songs_same_info;
 
 };
 

@@ -7,6 +7,7 @@ set(localSources
 # Add specific source to the list
 list(APPEND localSources
         ${CMAKE_CURRENT_SOURCE_DIR}/menucli.cpp
+        ${CMAKE_CURRENT_SOURCE_DIR}/appcli.cpp
         )
 #---------------
 

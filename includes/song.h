@@ -14,8 +14,9 @@ class Song : public Entry{
   Property<string> title;
   Property<string> artist;
   Property<string> album;
-  Property<int> duration{};;
+  Property<int> duration{};
   Property<int> size{};
+  Property<int> first_seen{};
 
   string url_to_path(const string &encoded);
 

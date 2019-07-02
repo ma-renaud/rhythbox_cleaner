@@ -7,24 +7,42 @@
 
 void RhythmDB::search_problems() {
   scan_progress = 0;
-  std::deque<std::pair<Song *, Song *>> conflicts;
+  std::deque<std::pair<Song, Song>> conflicts;
   int nb_songs = songs.size();
   int current_song = 0;
 
   while (current_song < nb_songs - 1) {
     for (int i = current_song + 1; i < nb_songs; i++) {
       if (songs[current_song].same_info(songs[i]))
-        conflicts.emplace_back(&songs[current_song], &songs[i]);
+        conflicts.emplace_back(songs[current_song], songs[i]);
       scan_progress = scan_progress() + 1;
     }
     current_song++;
   }
 
   for (auto &each : conflicts) {
-    if (each.first->same_file(*each.second))
+    if (each.first.same_file(each.second))
       duplicated_songs_same_file.emplace_back(each.first, each.second);
     else
       duplicated_songs_same_info.emplace_back(each.first, each.second);
+  }
+}
+
+void RhythmDB::fix_problems() {
+  fix_progress = 0;
+  Song* to_delete;
+  for (auto &each : duplicated_songs_same_file) {
+    if (each.first.first_seen() > each.second.first_seen())
+      to_delete = &each.first;
+    else
+      to_delete = &each.second;
+
+    if (to_delete) {
+      auto res = std::find(songs.begin(), songs.end(), *to_delete);
+      if (res != songs.end())
+        songs.erase(res);
+    }
+    fix_progress = fix_progress() + 1;
   }
 }
 
