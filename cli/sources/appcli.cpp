@@ -6,7 +6,6 @@
 #include <boost/filesystem.hpp>
 
 #include "mxml.h"
-#include "classwithcallback.h"
 #include "rhythmdb.h"
 #include "displaythread.h"
 
@@ -56,6 +55,7 @@ void AppCLI::create_backup(const std::string& src_path, const std::string& dest_
   dst << src.rdbuf();
 }
 
+
 bool AppCLI::load_database(const std::string &database_path) {
   FILE *fp;
   fp = fopen(database_path.c_str(), "r");
@@ -64,8 +64,8 @@ bool AppCLI::load_database(const std::string &database_path) {
     mxmlSAXLoadFile(nullptr,
                     fp,
                     MXML_TEXT_CALLBACK,
-                    SaxMemberFunctionCallback(parser.get(), &RhythmDBXML::sax_callback),
-                    nullptr);
+                    [](mxml_node_t *node, mxml_sax_event_t event, void *data){ reinterpret_cast<RhythmDBXML*>(data)->sax_callback(node, event, data); },
+                    parser.get());
     fclose(fp);
     menu->load_completed();
     return true;
