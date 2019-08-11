@@ -8,6 +8,7 @@
 /test/.idea/*
 .vs
 *.xml
+/ccleaner_screenshot/*
 
 .metadata
 bin/
